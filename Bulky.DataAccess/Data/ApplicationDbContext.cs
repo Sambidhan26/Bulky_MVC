@@ -26,7 +26,7 @@ namespace Bulky.DataAccess.Data
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
-                    Id = 1,
+                    ProductId = 1,
                     Title = "Fortune of Time",
                     Author = "Billy Spark",
                     Description = "Praesent vitae sodales libero. ...",
@@ -38,7 +38,7 @@ namespace Bulky.DataAccess.Data
                 },
                 new Product
                 {
-                    Id = 2,
+                    ProductId = 2,
                     Title = "Dark Skies",
                     Author = "Nancy Hoover",
                     Description = "Praesent vitae sodales libero. ...",
@@ -50,7 +50,7 @@ namespace Bulky.DataAccess.Data
                 },
                 new Product
                 {
-                    Id = 3,
+                    ProductId = 3,
                     Title = "Hello World",
                     Author = "Computer",
                     Description = "Programming Language",
