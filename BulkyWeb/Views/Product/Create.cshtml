@@ -53,6 +53,13 @@
                     <label asp-for="Price100" class="ms-2"></label>
                     <span asp-validation-for="Price100" class="text-danger"></span>
                 </div>
+                <div class="form-floating py-2 col-12">
+                    <select asp-for="Id" asp-items="ViewBag.CategorySegmentList" class="form-select border-0 shadow" placeholder="Display Order">
+                        <option disabled selected>--Select Category--</option>
+                    </select>
+                    <label asp-for="Id" class="ms-2"></label>
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
 
                 <div class="row">
                     <div class="col-6 col-md-3">
