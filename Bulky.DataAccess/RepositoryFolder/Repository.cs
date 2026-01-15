@@ -1,6 +1,8 @@
 ﻿using Bulky.DataAccess.Data;
 using Bulky.DataAccess.RepositoryFolder.IRepository;
+using Bulky.Models.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,22 +21,40 @@ namespace Bulky.DataAccess.RepositoryFolder
         {
             _db = db;
             this._dbSet = _db.Set<T>();
+            _db.Products.Include(u => u.Category).Include(u=>u.Category.Id).Include(u=>u.Category.Name);
         }
         public void Add(T entity)
         {
             _dbSet.Add(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
         {
             IQueryable<T> query = _dbSet;
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                //have to use , comma seperated values
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             query = query.Where(filter);
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+        //Category,CoverType
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = _dbSet;
+            if(!string.IsNullOrEmpty(includeProperties))
+            {
+                //have to use , comma seperated values
+                foreach(var includeProp in includeProperties.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return query.ToList();
         }
 
